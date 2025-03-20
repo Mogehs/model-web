@@ -1,0 +1,28 @@
+body {
+  overflow-x: hidden;
+}
+
+.canvas {
+  position: relative;
+  width: 75%;
+  height: 100vh;
+}
+Canvas {
+  background-color: #f5f4f3;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: inline;
+  }
+  .canvas {
+    width: 100%;
+    height: 60vh;
+  }
+}

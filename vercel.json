@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/old-route",
+      "destination": "/new-route"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/user/dashboard"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/old-page",
+      "destination": "/new-page",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/articles/:slug",
+      "permanent": false
+    }
+  ]
+}
