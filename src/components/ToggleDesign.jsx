@@ -346,7 +346,7 @@ const ToggleDesign = () => {
       <Medellion />
       <ToeCap />
       <Materials />
-      <div className="sm:w-[25%] py-5 sm:py-20 font-gt text-[0.9rem] ">
+      <div className="sm:w-[25%] py-5 lg:py-20  font-gt text-[0.9rem] ">
         <h1 className="mx-auto w-50 text-center leading-none ">
           Create your own shoes in just a few clicks
         </h1>
