@@ -4,10 +4,12 @@ import { Environment, OrbitControls } from "@react-three/drei";
 
 // import Picker from "./components/Picker";
 import ToggleDesign from "./components/ToggleDesign";
-import WingToeModel from "./components/oxford-models/WingToeModel";
+import Model from "./components/oxford-models/WingTip";
 import "./App.css";
+import { useSelector } from "react-redux";
 
 function App() {
+  const model = useSelector((state) => state.model.selectedModel);
   return (
     <>
       <div className="container mx-auto max-w-[1536px]">
@@ -15,7 +17,7 @@ function App() {
           <Canvas shadows camera={{ position: [-1.7, 0.7, 0.8] }}>
             <ambientLight intensity={0.8} />
             <Suspense fallback={null}>
-              <WingToeModel />
+              {model === "wingTip" && <Model />}
             </Suspense>
             <OrbitControls />
             <Environment preset="city" />

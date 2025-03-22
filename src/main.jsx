@@ -2,12 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { DesignProvider } from "./contexts/DesignContext";
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <DesignProvider>
+    <Provider store={store}>
       <App />
-    </DesignProvider>
+    </Provider>
   </StrictMode>
 );
