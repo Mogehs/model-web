@@ -7,6 +7,14 @@ import {
   setRubberSoleState,
   setTrackingEvaSoleState,
 } from "../redux/features/designSlice";
+import Sole from "./style/Sole";
+import {
+  setMedallionStyleState,
+  setSoleStyleState,
+  setToeCapStyleState,
+} from "../redux/features/styleSlice";
+import Medallion from "./style/Medallion";
+import ToeCap from "./style/ToeCap";
 
 const ToggleDesign = () => {
   const medallionState = useSelector((state) => state.design.medallionState);
@@ -17,7 +25,11 @@ const ToggleDesign = () => {
     (state) => state.design.trackingEvaSoleState
   );
   const rubberSoleState = useSelector((state) => state.design.rubberSoleState);
-
+  const medallionStyle = useSelector(
+    (state) => state.style.medallionStyleState
+  );
+  const soleStyle = useSelector((state) => state.style.soleStyelState);
+  const toeCapStyle = useSelector((state) => state.style.toeCapStyleState);
   const dispatch = useDispatch();
 
   const [style, setStyle] = useState(false);
@@ -101,191 +113,6 @@ const ToggleDesign = () => {
     );
   };
 
-  const Sole = () => {
-    return (
-      <div
-        className={`sm:w-[25%] font-gt text-[0.8rem] absolute bg-white h-screen overflow-y-auto top-0 right-0
-      transition-transform duration-[2000] ease-in-out z-20
-      ${sole ? "inline" : "hidden"}`}
-      >
-        <h1 className="mx-auto w-full text-center leading-none uppercase sticky top-0  bg-white p-4">
-          Sole
-        </h1>
-        <div className="flex flex-col items-center gap-5 mt-5 h-fit">
-          {[
-            {
-              label: "goma2",
-              current: "rubber",
-              img: "/model-soles/rubber.jpg",
-            },
-            {
-              label: "cuero2",
-              current: "leather - black",
-              img: "/model-soles/leather-black.jpg",
-            },
-            {
-              label: "cuero_medio2",
-              current: "leather - mid",
-              img: "/model-soles/leather-mid.jpg",
-            },
-            {
-              label: "track2",
-              current: "tracker - eva",
-              img: "/model-soles/tracker-eva.jpg",
-            },
-          ].map((item) => (
-            <div
-              className="flex flex-col items-center uppercase cursor-pointer"
-              onClick={() => {
-                if (item.current === "rubber") {
-                  dispatch(setRubberSoleState(true));
-                  dispatch(setLeatherSoleState(false));
-                  dispatch(setTrackingEvaSoleState(false));
-                } else if (item.current === "tracker - eva") {
-                  dispatch(setTrackingEvaSoleState(true));
-                  dispatch(setRubberSoleState(false));
-                  dispatch(setLeatherSoleState(false));
-                } else if (item.current === "leather - black") {
-                  dispatch(setLeatherSoleState(true));
-                  dispatch(setRubberSoleState(false));
-                  dispatch(setTrackingEvaSoleState(false));
-                } else if (item.current === "leather - mid") {
-                  dispatch(setLeatherSoleState(true));
-                  dispatch(setRubberSoleState(false));
-                  dispatch(setTrackingEvaSoleState(false));
-                }
-              }}
-            >
-              <img src={item.img} alt="" />
-              {/* <p className="cursor-pointer text-[0.7rem] text-gray-400">
-                {item.label}
-              </p> */}
-              <p className="text-[1rem] font-bold">{item.current}</p>
-            </div>
-          ))}
-        </div>
-        <div
-          className="mt-20 text-center text-[1rem]  cursor-pointer bg-white sticky bottom-0 w-full h-[4rem]"
-          onClick={() => setSole(false)}
-        >
-          <hr className="my-2 text-gray-400  " />
-          <p>Back</p>
-        </div>
-      </div>
-    );
-  };
-
-  const Medellion = () => {
-    return (
-      <div
-        className={`sm:w-[25%]  font-gt text-[0.8rem] absolute bg-white h-screen overflow-y-auto top-0 right-0
-      transition-transform duration-[2000] ease-in-out z-10
-      ${medellion ? "inline" : "hidden"}`}
-      >
-        <h1 className="mx-auto w-50 text-center leading-none uppercase sticky top-0 bg-white pt-6">
-          Medallion
-        </h1>
-        <div className="flex flex-col items-center gap-10 py-10 h-[69%]">
-          {[
-            {
-              label: "no",
-              current: "no",
-              value: false,
-              img: "/medallion/yes-medallion.jpg",
-            },
-            {
-              label: "yes",
-              current: "yes",
-              value: true,
-              img: "/medallion/no-medallion.jpg",
-            },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="flex flex-col items-center uppercase cursor-pointer"
-              onClick={() => {
-                if (item.value) {
-                  dispatch(setDesignState(false));
-                  dispatch(setMedallionState(true));
-                } else {
-                  dispatch(setDesignState(true));
-                  dispatch(setMedallionState(false));
-                }
-              }}
-            >
-              <img src={item.img} alt="" className="w-[10rem]" />
-              {/* <p className="cursor-pointer text-[0.7rem] text-gray-400">
-                {item.label}
-              </p> */}
-              <p className="text-[1rem] font-bold">{item.current}</p>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className="mt-20 text-center text-[1rem]  cursor-pointer bg-white sticky bottom-0 w-full h-[4rem]"
-          onClick={() => setMedellion(false)}
-        >
-          <hr className="my-2 text-gray-400" />
-          <p>Back</p>
-        </div>
-      </div>
-    );
-  };
-
-  const ToeCap = () => {
-    return (
-      <div
-        className={`sm:w-[25%] font-gt text-[0.8rem] absolute bg-white h-screen overflow-y-auto top-0 right-0
-      transition-transform duration-[2000] ease-in-out z-10
-      ${toeCap ? "inline" : "hidden"}`}
-      >
-        <h1 className="mx-auto w-50 text-center leading-none uppercase sticky top-0 bg-white pt-6">
-          Toe Cap
-        </h1>
-        <div className="flex flex-col items-center gap-15 mt-10 h-[100%]">
-          {[
-            {
-              label: "lisa",
-              current: "plain toe",
-              img: "/model-pics/plain-toe.jpg",
-            },
-            {
-              label: "enterizo",
-              current: "wholecut",
-              img: "/model-pics/whole-cut.jpg",
-            },
-            {
-              label: "vega",
-              current: "wingtip",
-              img: "/model-pics/wing-tip.jpg",
-            },
-            {
-              label: "recta",
-              current: "cap toe",
-              img: "/model-pics/cap-toe.jpg",
-            },
-          ].map((item) => (
-            <div className="flex flex-col items-center uppercase cursor-pointer">
-              <img src={item.img} alt="" className="w-[12rem]" />
-              {/* <p className="cursor-pointer text-[0.7rem] text-gray-400">
-                {item.label}
-              </p> */}
-              <p className="text-[1rem] font-bold">{item.current}</p>
-            </div>
-          ))}
-        </div>
-        <div
-          className="mt-20 text-center text-[1rem]  cursor-pointer bg-white sticky bottom-0 w-full h-[4rem]"
-          onClick={() => setToeCap(false)}
-        >
-          <hr className="my-2 text-gray-400 sticky bottom-0" />
-          <p>Back</p>
-        </div>
-      </div>
-    );
-  };
-
   const Style = () => {
     return (
       <div
@@ -316,9 +143,12 @@ const ToggleDesign = () => {
               key={id}
               className="flex flex-col items-center cursor-pointer h-fit uppercase text-center"
               onClick={() => {
-                item.label === "toe cap" && setToeCap((prev) => !prev);
-                item.label === "medallion" && setMedellion((prev) => !prev);
-                item.label === "sole" && setSole((prev) => !prev);
+                item.label === "toe cap" &&
+                  dispatch(setToeCapStyleState(!toeCapStyle));
+                item.label === "medallion" &&
+                  dispatch(setMedallionStyleState(!medallionStyle));
+                item.label === "sole" &&
+                  dispatch(setSoleStyleState(!soleStyle));
               }}
             >
               <p className="cursor-pointer text-[0.7rem] text-gray-400">
@@ -343,7 +173,7 @@ const ToggleDesign = () => {
     <>
       <Style />
       <Sole />
-      <Medellion />
+      <Medallion />
       <ToeCap />
       <Materials />
       <div className="sm:w-[25%] py-5 lg:py-20  font-gt text-[0.9rem] ">
