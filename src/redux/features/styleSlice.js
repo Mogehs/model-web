@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  allPiecesMaterialState: false,
   styleState: false,
   soleStyleState: false,
   medallionStyleState: false,
   toeCapStyleState: false,
+  modelStyleState: false,
+  lacesStyleState: false,
+  lacesType: "black",
+  eyeletsStyleState: false,
+  materialType: "all pieces",
 };
 
 const styleSlice = createSlice({
@@ -23,6 +29,24 @@ const styleSlice = createSlice({
     setToeCapStyleState: (state, action) => {
       state.toeCapStyleState = action.payload;
     },
+    setModelStyleState: (state, action) => {
+      state.modelStyleState = action.payload;
+    },
+    setLacesStyleState: (state, action) => {
+      state.lacesStyleState = action.payload;
+    },
+    setEyeletsStyleState: (state, action) => {
+      state.eyeletsStyleState = action.payload;
+    },
+    setAllPiecesMaterialState: (state, action) => {
+      state.allPiecesMaterialState = action.payload;
+    },
+    setMaterialType: (state, action) => {
+      state.materialType = action.payload;
+    },
+    setLacesType: (state, action) => {
+      state.lacesType = action.payload;
+    },
   },
 });
 
@@ -31,6 +55,12 @@ export const {
   setMedallionStyleState,
   setSoleStyleState,
   setToeCapStyleState,
+  setModelStyleState,
+  setLacesStyleState,
+  setEyeletsStyleState,
+  setAllPiecesMaterialState,
+  setMaterialType,
+  setLacesType,
 } = styleSlice.actions;
 
 export default styleSlice.reducer;

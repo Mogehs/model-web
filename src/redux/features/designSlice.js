@@ -3,9 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   designState: true,
   medallionState: false,
-  leatherSoleState: true,
-  trackingEvaSoleState: false,
-  rubberSoleState: false,
+  soleState: "leatherBlack",
+  lacesStyle: "black",
+  eyeletsStyle: "blind eyelets",
+  eyeletsColor: "#D2BF70",
+  materialColor: "black",
 };
 
 const designSlice = createSlice({
@@ -18,14 +20,20 @@ const designSlice = createSlice({
     setMedallionState: (state, action) => {
       state.medallionState = action.payload;
     },
-    setLeatherSoleState: (state, action) => {
-      state.leatherSoleState = action.payload;
+    setSoleState: (state, action) => {
+      state.soleState = action.payload;
     },
-    setTrackingEvaSoleState: (state, action) => {
-      state.trackingEvaSoleState = action.payload;
+    setLacesStyle: (state, action) => {
+      state.lacesStyle = action.payload;
     },
-    setRubberSoleState: (state, action) => {
-      state.rubberSoleState = action.payload;
+    setEyeletsStyle: (state, action) => {
+      state.eyeletsStyle = action.payload;
+    },
+    setEyeletsColor: (state, action) => {
+      state.eyeletsColor = action.payload;
+    },
+    setMaterialColor: (state, action) => {
+      state.materialColor = action.payload;
     },
   },
 });
@@ -33,9 +41,11 @@ const designSlice = createSlice({
 export const {
   setDesignState,
   setMedallionState,
-  setLeatherSoleState,
-  setTrackingEvaSoleState,
-  setRubberSoleState,
+  setSoleState,
+  setLacesStyle,
+  setEyeletsStyle,
+  setEyeletsColor,
+  setMaterialColor,
 } = designSlice.actions;
 
 export default designSlice.reducer;

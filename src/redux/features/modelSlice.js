@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  modelLoaded: false,
-  selectedModel: "wingTip",
+  selectedModel: "oxford",
+  selectedStyle: "wingTip",
 };
 
 const modelSlice = createSlice({
   name: "model",
   initialState,
   reducers: {
-    setModelLoaded: (state, action) => {
-      state.modelLoaded = action.payload;
+    setSelectedStyle: (state, action) => {
+      state.selectedModel = action.payload;
     },
     setSelectedModel: (state, action) => {
       state.selectedModel = action.payload;
@@ -18,5 +18,5 @@ const modelSlice = createSlice({
   },
 });
 
-export const { setModelLoaded, setSelectedModel } = modelSlice.actions;
+export const { setSelectedStyle, setSelectedModel } = modelSlice.actions;
 export default modelSlice.reducer;

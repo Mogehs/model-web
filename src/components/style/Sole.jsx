@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLeatherSoleState,
-  setRubberSoleState,
-  setTrackingEvaSoleState,
-} from "../../redux/features/designSlice";
+import { setSoleState } from "../../redux/features/designSlice";
 import { setSoleStyleState } from "../../redux/features/styleSlice";
 
 const Sole = () => {
@@ -45,21 +41,13 @@ const Sole = () => {
             className="flex flex-col items-center uppercase cursor-pointer"
             onClick={() => {
               if (item.current === "rubber") {
-                dispatch(setRubberSoleState(true));
-                dispatch(setLeatherSoleState(false));
-                dispatch(setTrackingEvaSoleState(false));
+                dispatch(setSoleState("rubber"));
               } else if (item.current === "tracker - eva") {
-                dispatch(setTrackingEvaSoleState(true));
-                dispatch(setRubberSoleState(false));
-                dispatch(setLeatherSoleState(false));
+                dispatch(setSoleState("trackingEva"));
               } else if (item.current === "leather - black") {
-                dispatch(setLeatherSoleState(true));
-                dispatch(setRubberSoleState(false));
-                dispatch(setTrackingEvaSoleState(false));
+                dispatch(setSoleState("leatherBlack"));
               } else if (item.current === "leather - mid") {
-                dispatch(setLeatherSoleState(true));
-                dispatch(setRubberSoleState(false));
-                dispatch(setTrackingEvaSoleState(false));
+                dispatch(setSoleState("leatherMid"));
               }
             }}
           >

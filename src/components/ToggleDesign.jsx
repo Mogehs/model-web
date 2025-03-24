@@ -1,42 +1,50 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setDesignState,
-  setLeatherSoleState,
-  setMedallionState,
-  setRubberSoleState,
-  setTrackingEvaSoleState,
-} from "../redux/features/designSlice";
+
 import Sole from "./style/Sole";
 import {
   setMedallionStyleState,
   setSoleStyleState,
   setToeCapStyleState,
+  setModelStyleState,
+  setLacesStyleState,
+  setEyeletsStyleState,
+  setAllPiecesMaterialState,
+  setMaterialType,
 } from "../redux/features/styleSlice";
 import Medallion from "./style/Medallion";
 import ToeCap from "./style/ToeCap";
+import Models from "./style/Models";
+import Laces from "./style/Laces";
+import Eyelets from "./style/Eyelets";
+import AllPieces from "./materials/AllPieces";
 
 const ToggleDesign = () => {
+  const modelType = useSelector((state) => state.model.selectedModel);
+
   const medallionState = useSelector((state) => state.design.medallionState);
-  const leatherSoleState = useSelector(
-    (state) => state.design.leatherSoleState
-  );
-  const trackingEvaSoleState = useSelector(
-    (state) => state.design.trackingEvaSoleState
-  );
-  const rubberSoleState = useSelector((state) => state.design.rubberSoleState);
+
+  const sole = useSelector((state) => state.design.soleState);
   const medallionStyle = useSelector(
     (state) => state.style.medallionStyleState
   );
   const soleStyle = useSelector((state) => state.style.soleStyelState);
   const toeCapStyle = useSelector((state) => state.style.toeCapStyleState);
+  const modelStyle = useSelector((state) => state.style.modelStyleState);
+  const lacesStyle = useSelector((state) => state.style.lacesStyleState);
+  const eyeletsStyleState = useSelector(
+    (state) => state.style.eyeletsStyleState
+  );
+  const allPiecesState = useSelector(
+    (state, action) => state.style.allPiecesMaterialState
+  );
+  const eyeletsStyle = useSelector((state) => state.design.eyeletsStyle);
+  const lacesType = useSelector((state) => state.style.lacesType);
+
   const dispatch = useDispatch();
 
   const [style, setStyle] = useState(false);
   const [materials, setMaterials] = useState(false);
-  const [toeCap, setToeCap] = useState(false);
-  const [medellion, setMedellion] = useState(false);
-  const [sole, setSole] = useState(false);
 
   const Materials = () => {
     return (
@@ -89,9 +97,8 @@ const ToggleDesign = () => {
             <div
               className="flex flex-col items-center cursor-pointer h-fit uppercase text-center"
               onClick={() => {
-                item.label === "toe cap" && setToeCap((prev) => !prev);
-                item.label === "medallion" && setMedellion((prev) => !prev);
-                item.label === "sole" && setSole((prev) => !prev);
+                dispatch(setAllPiecesMaterialState(!allPiecesState));
+                dispatch(setMaterialType(item.label));
               }}
             >
               <img src={item.img} alt="" className="w-[12rem]" />
@@ -120,24 +127,20 @@ const ToggleDesign = () => {
         transition-transform duration-[2000] ease-in-out
         ${style ? "inline" : "hidden"}`}
       >
-        <h1 className="mx-auto w-50 text-center leading-none uppercase sticky top-0 bg-white pt-6">
+        <h1 className="mx-auto w-50 text-center leading-none uppercase sticky top-0 bg-white py-4">
           Design the style of your shoe
         </h1>
         <div className="flex flex-col items-center gap-15 mt-10 h-fit">
           {[
-            { label: "model", current: "Oxford" },
+            { label: "model", current: modelType },
             { label: "toe cap", current: "WingTip" },
             { label: "medallion", current: medallionState ? "yes" : "no" },
             {
               label: "sole",
-              current: leatherSoleState
-                ? "leather"
-                : trackingEvaSoleState
-                ? "Tracker Eva"
-                : rubberSoleState && "Rubber",
+              current: sole,
             },
-            { label: "laces", current: "By Default" },
-            { label: "eyelets", current: "blind eylets" },
+            { label: "laces", current: lacesType },
+            { label: "eyelets", current: eyeletsStyle },
           ].map((item, id) => (
             <div
               key={id}
@@ -149,6 +152,12 @@ const ToggleDesign = () => {
                   dispatch(setMedallionStyleState(!medallionStyle));
                 item.label === "sole" &&
                   dispatch(setSoleStyleState(!soleStyle));
+                item.label === "model" &&
+                  dispatch(setModelStyleState(!modelStyle));
+                item.label === "laces" &&
+                  dispatch(setLacesStyleState(!lacesStyle));
+                item.label === "eyelets" &&
+                  dispatch(setEyeletsStyleState(!eyeletsStyleState));
               }}
             >
               <p className="cursor-pointer text-[0.7rem] text-gray-400">
@@ -172,10 +181,16 @@ const ToggleDesign = () => {
   return (
     <>
       <Style />
+      <Laces />
+      <Models />
       <Sole />
       <Medallion />
       <ToeCap />
+      <Eyelets />
+
       <Materials />
+      <AllPieces />
+
       <div className="sm:w-[25%] py-5 lg:py-20  font-gt text-[0.9rem] ">
         <h1 className="mx-auto w-50 text-center leading-none ">
           Create your own shoes in just a few clicks

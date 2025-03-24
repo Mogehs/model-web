@@ -1,29 +1,141 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { useProxy } from "valtio/utils";
-
-import state from "../../contexts/State";
+import * as THREE from "three";
 import { useSelector } from "react-redux";
+import { useLoader } from "@react-three/fiber";
+
+// import { useFrame } from "@react-three/fiber";
+// import { useProxy } from "valtio/utils";
+// import state from "../../contexts/State";
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF("/oxford-models/WingTip-draco.glb");
+  const materialType = useSelector((state) => state.style.materialType);
+  const materialColor = useSelector((state) => state.design.materialColor);
+  const lacesColor = useSelector((state) => state.design.lacesStyle);
+  const eyeletsColor = useSelector((state) => state.design.eyeletsColor);
+  const [albedo, normal, roughness, metalness, ao] = useLoader(
+    THREE.TextureLoader,
+    [
+      "/textures/black-leather_albedo.png", // Base color
+      "/textures/black-leather_normal-ogl.png", // Normal map
+      "/textures/black-leather_roughness.png", // Roughness map
+      "/textures/black-leather_metallic.png", // Metalness map
+      "/textures/black-leather_ao.png", // Ambient Occlusion map
+    ]
+  );
   const ref = useRef();
-  const snap = useProxy(state);
-  useFrame(() => {
-    // ref.current.rotation.y += 0.01;
-  });
+  useEffect(() => {
+    if (!materials) return;
+
+    const materialUpdates = {
+      Laces: { color: lacesColor, intensity: 15 },
+      Points: { color: "black", intensity: 1 },
+      "Eyelets Material": { color: eyeletsColor, intensity: 2 },
+    };
+
+    Object.entries(materialUpdates).forEach(([key, { color, intensity }]) => {
+      if (materials[key]) {
+        materials[key].color.set(color).multiplyScalar(intensity);
+        materials[key].needsUpdate = true;
+      }
+      if (materialType === "all pieces" && materialColor) {
+        [
+          "Wing Toe Material",
+          "Wing Toe Body Material",
+          "Wing Toe Back Material",
+          "Wing Toe Side Parts Material",
+          "Wing Toe Front Material",
+          "Wing Toe Inner Body Material",
+          "Thread Material",
+          "Whole Cut Body Material",
+          "Wing Toe Inner Body Material",
+        ].forEach((item) => {
+          materials[item].color.set(materialColor).multiplyScalar(2);
+        });
+        materials["Black bull leather"].map.colorSpace = THREE.SRGBColorSpace;
+        materials["Black bull leather"].color
+          .set(materialColor)
+          .multiplyScalar(45);
+        materials["Black bull leather"].needsUpdate = true;
+      } else if (materialType === "toe cap") {
+        materials["Wing Toe Material"].color
+          .set(materialColor)
+          .multiplyScalar(1);
+      } else if (materialType === "vamp") {
+        materials["Wing Toe Body Material"].color
+          .set(materialColor)
+          .multiplyScalar(1);
+      } else if (materialType === "quarter") {
+        materials["Wing Toe Side Parts Material"].color
+          .set(materialColor)
+          .multiplyScalar(1);
+      } else if (materialType === "facing") {
+        materials["Wing Toe Front Material"].color
+          .set(materialColor)
+          .multiplyScalar(1);
+      } else if (materialType === "heel cap") {
+        materials["Wing Toe Back Material"].color
+          .set(materialColor)
+          .multiplyScalar(1);
+      } else if (materialType === "tounge") {
+        materials["Black bull leather"].map.colorSpace = THREE.SRGBColorSpace;
+        materials["Black bull leather"].color
+          .set(materialColor)
+          .multiplyScalar(45);
+        materials["Black bull leather"].needsUpdate = true;
+      }
+    });
+  }, [materials, lacesColor, eyeletsColor, materialType, materialColor]);
+
+  useEffect(() => {
+    const materialNames = [
+      "Wing Toe Material",
+      "Wing Toe Body Material",
+      "Wing Toe Back Material",
+      "Wing Toe Side Parts Material",
+      "Wing Toe Front Material",
+      "Wing Toe Inner Body Material",
+      "Thread Material",
+      "Whole Cut Body Material",
+      "Wing Toe Inner Body Material",
+    ];
+
+    materialNames.forEach((name) => {
+      if (materials[name]) {
+        // Texture Wrapping & Settings
+        [albedo, normal, roughness, metalness, ao].forEach((texture) => {
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+          texture.anisotropy = 16;
+          texture.repeat.set(6, 6); // Adjust for scale
+        });
+
+        // Apply PBR Maps to Material
+        materials[name].map = albedo;
+        materials[name].normalMap = normal;
+        materials[name].roughnessMap = roughness;
+        materials[name].metalnessMap = metalness;
+        materials[name].aoMap = ao;
+
+        // PBR Material Properties
+        materials[name].roughness = 0.8; // Adjust shininess
+        materials[name].metalness = 0.1; // Controls metallic look
+        materials[name].aoMapIntensity = 1; // Enhances shadow depth
+
+        materials[name].needsUpdate = true;
+      }
+    });
+  }, [materials]);
+
+  // const snap = useProxy(state);
+  // useFrame(() => {
+  //   ref.current.rotation.y += 0.01;
+  // });
 
   const designState = useSelector((state) => state.design.designState);
   const medallionState = useSelector((state) => state.design.medallionState);
-  const leatherSoleState = useSelector(
-    (state) => state.design.leatherSoleState
-  );
-  const trackingEvaSoleState = useSelector(
-    (state) => state.design.trackingEvaSoleState
-  );
-  const rubberSoleState = useSelector((state) => state.design.rubberSoleState);
+  const sole = useSelector((state) => state.design.soleState);
 
   return (
     <group {...props} dispose={null} ref={ref} scale={[7, 7, 7]}>
@@ -39,37 +151,30 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube002.geometry}
             material={materials["Wing Toe Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_1.geometry}
             material={materials["Wing Toe Body Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_2.geometry}
             material={materials["Wing Toe Side Parts Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_3.geometry}
             material={materials["Wing Toe Back Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_4.geometry}
             material={materials["Wing Toe Front Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_5.geometry}
             material={materials["Wing Toe Inner Body Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube002_6.geometry}
             material={materials["Eyelets Material"]}
-            material-color="white"
           />
         </group>
       )}
@@ -78,106 +183,86 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube001.geometry}
             material={materials["Wing Toe Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_1.geometry}
             material={materials["Wing Toe Body Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_2.geometry}
             material={materials["Wing Toe Side Parts Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_3.geometry}
             material={materials["Wing Toe Back Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_4.geometry}
             material={materials["Wing Toe Front Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_5.geometry}
             material={materials["Wing Toe Inner Body Material"]}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube001_6.geometry}
             material={materials["Eyelets Material"]}
-            material-color="white"
           />
           <mesh
             geometry={nodes.Cube001_7.geometry}
             material={materials["Whole Cut Body Material"]}
-            material-color="black"
           />
         </group>
       )}
       <mesh
         geometry={nodes.Plain_Toe_Inner_Thread_Top_Sides001.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_4_Stich_Back_Left.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_5_Stich_Bottom.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_6_Stich_Back_Side_Right.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_7_Stich_Bottom.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_8_Stich_Back.geometry}
         material={materials["Thread Material"]}
         position={[0.002, 0, -0.002]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_9_Stich_Back.geometry}
         material={materials["Thread Material"]}
         position={[0, 0, -0.003]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_10_Stich_Middle.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_11_Stich_Middle.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_12_Middle_Stich.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Path_13_Middle_Stich.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Plain_Toe_Thread_Top_Sides_Outer.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Sole_Thread_Path_For_Plain_Toe.geometry}
@@ -185,17 +270,14 @@ export default function Model(props) {
         position={[0.008, 0.007, -0.016]}
         rotation={[0, 0.142, 0]}
         scale={1.02}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Wing_Toe_Thread_Top.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       <mesh
         geometry={nodes.Wing_Toe_Thread_Top001.geometry}
         material={materials["Thread Material"]}
-        material-color="black"
       />
       {/* <group position={[0.005, 0.088, -0.001]}>
         <mesh
@@ -257,22 +339,22 @@ export default function Model(props) {
         position={[-0.005, 0.112, 0.002]}
         scale={0.032}
       />
-      {leatherSoleState && (
+      {sole === "leatherBlack" && (
         <group position={[0.012, 0.008, 0.03]}>
           <mesh
             geometry={nodes.Cube007.geometry}
             material={materials.Sole}
             material-color="black"
           />
+
           <mesh
             geometry={nodes.Cube007_1.geometry}
             material={materials.Points}
-            material-color="black"
           />
           <mesh
             geometry={nodes.Cube007_2.geometry}
             material={materials["Brown Bottom"]}
-            material-color="#3C2314"
+            material-color="brown"
           />
           <mesh
             geometry={nodes.Cube007_3.geometry}
@@ -281,22 +363,38 @@ export default function Model(props) {
           />
         </group>
       )}
-      {/* <group position={[0.012, 0.008, 0.03]}>
-        <mesh geometry={nodes.Cube003.geometry} material={materials.Sole} />
-        <mesh geometry={nodes.Cube003_1.geometry} material={materials.Points} />
-        <mesh
-          geometry={nodes.Cube003_2.geometry}
-          material={materials["Brown Bottom"]}
-        />
-        <mesh geometry={nodes.Cube003_3.geometry} material={materials.Heel} />
-        <mesh
-          geometry={nodes.Cube003_4.geometry}
-          material={materials["Leather Mid Sole"]}
-        />
-      </group> */}
-      {trackingEvaSoleState && (
+      {sole === "leatherMid" && (
+        <group position={[0.012, 0.008, 0.03]}>
+          <mesh geometry={nodes.Cube003.geometry} material={materials.Sole} />
+          <mesh
+            geometry={nodes.Cube003_1.geometry}
+            material={materials.Points}
+            material-color="black"
+          />
+          <mesh
+            geometry={nodes.Cube003_2.geometry}
+            material={materials["Brown Bottom"]}
+            material-color="brown"
+          />
+          <mesh
+            geometry={nodes.Cube003_3.geometry}
+            material={materials.Heel}
+            material-color="black"
+          />
+          <mesh
+            geometry={nodes.Cube003_4.geometry}
+            material={materials["Leather Mid Sole"]}
+            material-color="#712815"
+          />
+        </group>
+      )}
+      {sole === "trackingEva" && (
         <group position={[0.007, 0.002, 0.029]} rotation={[0.008, 0, 0.013]}>
-          <mesh geometry={nodes.Cube014.geometry} material={materials.Sole} />
+          <mesh
+            geometry={nodes.Cube014.geometry}
+            material={materials.Sole}
+            material-color="black"
+          />
           <mesh
             geometry={nodes.Cube014_1.geometry}
             material={materials["Brown Bottom"]}
@@ -304,18 +402,22 @@ export default function Model(props) {
           />
         </group>
       )}
-      {rubberSoleState && (
+      {sole === "rubber" && (
         <>
-          <mesh geometry={nodes.Cube004.geometry} material={materials.Sole} />
+          <mesh
+            geometry={nodes.Cube004.geometry}
+            material={materials.Sole}
+            material-color="black"
+          />
           <mesh
             geometry={nodes.Cube004_1.geometry}
             material={materials["Wood Sole"]}
-            material-color="#261911"
+            material-color="#6C5D54"
           />
           <mesh
             geometry={nodes.Cube004_2.geometry}
             material={materials["Sole Bottom"]}
-            material-color="#232123"
+            material-color="black"
           />
         </>
       )}
