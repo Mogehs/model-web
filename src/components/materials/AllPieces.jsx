@@ -29,7 +29,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/roberto.jpg",
             },
             {
-              color: "#654321",
+              color: "#803E10",
               current: "febio",
               img: "/materials/calf-leather/fabio.jpg",
             },
@@ -39,7 +39,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/gio.jpg",
             },
             {
-              color: "#2C4259",
+              color: "#3C1E12",
               current: "carlo",
               img: "/materials/calf-leather/carlo.jpg",
             },
@@ -49,7 +49,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/paolo.jpg",
             },
             {
-              color: "#6B734D",
+              color: "#3F454F",
               current: "andrea",
               img: "/materials/calf-leather/andrea.jpg",
             },

@@ -6,7 +6,7 @@ const initialState = {
   soleState: "leatherBlack",
   lacesStyle: "black",
   eyeletsStyle: "blind eyelets",
-  eyeletsColor: "#D2BF70",
+  eyeletsColor: "black",
   materialColor: "black",
 };
 

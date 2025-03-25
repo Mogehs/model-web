@@ -35,7 +35,7 @@ const Eyelets = () => {
           },
           {
             label: "cuero_medio2",
-            color: "#736840",
+            color: "#776C42",
             current: "vintage brass",
             img: "/eye-lets/vintage.png",
           },

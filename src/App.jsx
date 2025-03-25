@@ -7,6 +7,7 @@ import ToggleDesign from "./components/ToggleDesign";
 import Model from "./components/oxford-models/WingTip";
 import "./App.css";
 import { useSelector } from "react-redux";
+import Loader from "./components/Loader";
 
 function App() {
   const style = useSelector((state) => state.model.selectedStyle);
@@ -19,7 +20,7 @@ function App() {
             shadows
             gl={{ toneMappingExposure: 1.5 }}
           >
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               {style === "wingTip" && <Model />}
             </Suspense>
 
