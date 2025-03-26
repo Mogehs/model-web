@@ -71,7 +71,7 @@ export default function Model(props) {
           "Thread Material",
           "Whole Cut Body Material",
         ].forEach((item) => {
-          materials[item].color.set(materialColor).multiplyScalar(10);
+          materials[item].color.set(materialColor).multiplyScalar(12);
         });
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -105,10 +105,10 @@ export default function Model(props) {
         });
         materials["Wing Toe Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
         materials["Whole Cut Body Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
       } else if (materialType === "vamp") {
         setVampThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -116,11 +116,11 @@ export default function Model(props) {
         });
         materials["Wing Toe Body Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
       } else if (materialType === "quarter") {
         materials["Wing Toe Side Parts Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
       } else if (materialType === "facing") {
         setFaceThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -128,7 +128,7 @@ export default function Model(props) {
         });
         materials["Wing Toe Front Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
       } else if (materialType === "heel cap") {
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -136,7 +136,7 @@ export default function Model(props) {
         });
         materials["Wing Toe Back Material"].color
           .set(materialColor)
-          .multiplyScalar(6);
+          .multiplyScalar(12);
       } else if (materialType === "tounge") {
         materials["Black bull leather"].map.colorSpace = THREE.SRGBColorSpace;
         materials["Black bull leather"].color
@@ -202,7 +202,7 @@ export default function Model(props) {
   // });
 
   return (
-    <group {...props} dispose={null} ref={ref} scale={[9, 9, 9]}>
+    <group {...props} dispose={null} ref={ref} scale={[10, 10, 10]}>
       <mesh
         geometry={nodes.Sole_Pad.geometry}
         material={materials["Sole Pad Material"]}

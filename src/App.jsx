@@ -16,7 +16,7 @@ function App() {
       <div className="container mx-auto max-w-[1536px]">
         <div className="canvas relative">
           <Canvas
-            camera={{ position: [-2, 0.8, 0.9] }}
+            camera={{ position: [-2, 0.9, 0.9] }}
             // shadows
             // gl={{ toneMappingExposure: 1.5 }}
           >
