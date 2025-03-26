@@ -16,20 +16,14 @@ function App() {
       <div className="container mx-auto max-w-[1536px]">
         <div className="canvas relative">
           <Canvas
-            camera={{ position: [-1.7, 0.7, 0.8] }}
-            shadows
-            gl={{ toneMappingExposure: 1.5 }}
+            camera={{ position: [-2, 0.8, 0.9] }}
+            // shadows
+            // gl={{ toneMappingExposure: 1.5 }}
           >
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={null}>
               {style === "wingTip" && <Model />}
             </Suspense>
 
-            <directionalLight intensity={2.5} position={[2, 3, 2]} castShadow />
-            <ambientLight intensity={0.3} />
-            <pointLight position={[-2, 1, -2]} intensity={1.5} color="red" />
-
-            <OrbitControls enableZoom={true} enablePan={false} />
-            <OrbitControls />
             <Environment preset="city" />
           </Canvas>
         </div>

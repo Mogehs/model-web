@@ -7,7 +7,7 @@ const initialState = {
   lacesStyle: "black",
   eyeletsStyle: "blind eyelets",
   eyeletsColor: "black",
-  materialColor: "black",
+  materialColor: "#282828",
 };
 
 const designSlice = createSlice({

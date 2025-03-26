@@ -71,7 +71,7 @@ export default function Model(props) {
           "Thread Material",
           "Whole Cut Body Material",
         ].forEach((item) => {
-          materials[item].color.set(materialColor).multiplyScalar(6);
+          materials[item].color.set(materialColor).multiplyScalar(10);
         });
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -164,9 +164,11 @@ export default function Model(props) {
     materialNames.forEach((name) => {
       if (materials[name]) {
         [albedo, normal, roughness, metalness, ao].forEach((texture) => {
-          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-          texture.anisotropy = 16;
-          texture.repeat.set(16, 10);
+          if (texture) {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.anisotropy = 18;
+            texture.repeat.set(5, 5); // More balanced scale for natural leather
+          }
         });
 
         materials[name].map = albedo;
@@ -175,14 +177,24 @@ export default function Model(props) {
         materials[name].metalnessMap = metalness;
         materials[name].aoMap = ao;
 
-        materials[name].roughness = 0.9;
-        materials[name].metalness = 0.1;
-        materials[name].aoMapIntensity = 1;
+        // 🎯 Soft, Premium Leather Adjustments
+        materials[name].roughness = 0.9; // Lower roughness for soft sheen
+        materials[name].metalness = 0.01; // Almost non-metallic
+        materials[name].aoMapIntensity = 6; // Stronger ambient occlusion for depth
+        // materials[name].displacementScale = 0.001; // Subtle depth for softness
+        // materials[name].displacementBias = -0.0005;
+
+        // ✅ Enhance Leather Grain & Surface Detail
+        materials[name].normalScale = new THREE.Vector2(0.5, 0.5); // Soft grain effect
+
+        // ✅ Add Clearcoat for Luxury Finish
+        materials[name].clearcoat = 0; // Adds a thin glossy layer
+        materials[name].clearcoatRoughness = 2; // Slightly softens reflections
 
         materials[name].needsUpdate = true;
       }
     });
-  }, [materials]);
+  }, [materials, albedo, normal, roughness, metalness, ao]);
 
   // const snap = useProxy(state);
   // useFrame(() => {
@@ -190,7 +202,7 @@ export default function Model(props) {
   // });
 
   return (
-    <group {...props} dispose={null} ref={ref} scale={[7, 7, 7]}>
+    <group {...props} dispose={null} ref={ref} scale={[9, 9, 9]}>
       <mesh
         geometry={nodes.Sole_Pad.geometry}
         material={materials["Sole Pad Material"]}

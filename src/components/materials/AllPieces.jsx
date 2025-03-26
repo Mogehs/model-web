@@ -34,7 +34,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/fabio.jpg",
             },
             {
-              color: "#53220C",
+              color: "#512615",
               current: "giovanni",
               img: "/materials/calf-leather/gio.jpg",
             },
@@ -54,7 +54,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/andrea.jpg",
             },
             {
-              color: "black",
+              color: "#282828",
               current: "alessio",
               img: "/materials/calf-leather/alessio.jpg",
             },
