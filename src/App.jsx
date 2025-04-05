@@ -8,6 +8,7 @@ import Model from "./components/oxford-models/WingTip";
 import "./App.css";
 import { useSelector } from "react-redux";
 import Loader from "./components/Loader";
+import { CapToeModel } from "./components/oxford-models/CapToe";
 
 function App() {
   const style = useSelector((state) => state.model.selectedStyle);
@@ -21,7 +22,8 @@ function App() {
             // gl={{ toneMappingExposure: 1.5 }}
           >
             <Suspense fallback={null}>
-              {style === "wingTip" && <Model />}
+              {/* {style === "wingTip" && <Model />} */}
+              <CapToeModel />
             </Suspense>
 
             <Environment preset="city" />

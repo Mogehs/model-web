@@ -489,4 +489,4 @@ export default function Model(props) {
   );
 }
 
-useGLTF.preload("/WingTip-draco.glb");
+useGLTF.preload("/oxford-models/WingTip-draco.glb");
