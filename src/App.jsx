@@ -4,11 +4,11 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 import ToggleDesign from "./components/ToggleDesign";
-import Model from "./components/oxford-models/WingTip";
 import "./App.css";
 import { useSelector } from "react-redux";
 import Loader from "./components/Loader";
-import { CapToeModel } from "./components/oxford-models/CapToe";
+import { WingModel } from "./components/oxford-models/Wing";
+import Model from "./components/oxford-models/WingTip";
 
 function App() {
   const style = useSelector((state) => state.model.selectedStyle);
@@ -22,8 +22,8 @@ function App() {
             // gl={{ toneMappingExposure: 1.5 }}
           >
             <Suspense fallback={null}>
-              {/* {style === "wingTip" && <Model />} */}
-              <CapToeModel />
+              {style === "wingTip" && <WingModel />}
+              {/* <Model /> */}
             </Suspense>
 
             <Environment preset="city" />
