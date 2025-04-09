@@ -7,8 +7,12 @@ import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoader } from "@react-three/fiber";
+import {
+  setAllPiecesMaterialState,
+  setMaterialType,
+} from "../../redux/features/styleSlice";
 
 export function WingModel(props) {
   const { nodes, materials } = useGLTF("/oxford-models/Wing-draco.glb");
@@ -42,10 +46,9 @@ export function WingModel(props) {
           if (texture) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
             texture.anisotropy = 18;
-            texture.repeat.set(5, 5); // More balanced scale for natural leather
+            texture.repeat.set(1, 1); // More balanced scale for natural leather
           }
         });
-
         materials[name].map = albedo;
         materials[name].normalMap = normal;
         materials[name].roughnessMap = roughness;
@@ -70,8 +73,9 @@ export function WingModel(props) {
       }
     });
   }, [materials, albedo, normal, roughness, metalness, ao]);
+  const dispatch = useDispatch();
   return (
-    <group {...props} dispose={null} scale={[10, 10, 10]}>
+    <group {...props} dispose={null}>
       <mesh
         geometry={nodes.Sole_Pad.geometry}
         material={materials["Sole Pad Material"]}
@@ -100,12 +104,12 @@ export function WingModel(props) {
           e.object.material.emissiveIntensity = 0;
         }}
       />
-      {/* <mesh
+      <mesh
         geometry={nodes.Wing_Toe_Body003.geometry}
         material={materials["Wing Toe Material"]}
         position={[0, -0.009, 0]}
         scale={0.149}
-      /> */}
+      />
       <mesh
         geometry={nodes.Wing_Toe_Body004.geometry}
         material={materials["Wing Toe Body Material"]}
@@ -120,6 +124,10 @@ export function WingModel(props) {
           e.stopPropagation();
           e.object.material.emissive.set(0x000000);
           e.object.material.emissiveIntensity = 0;
+        }}
+        onClick={() => {
+          dispatch(setAllPiecesMaterialState(true));
+          dispatch(setMaterialType("vamp"));
         }}
       />
       <mesh

@@ -34,7 +34,7 @@ const AllPieces = () => {
               img: "/materials/calf-leather/fabio.jpg",
             },
             {
-              color: "#512615",
+              color: "#51260F",
               current: "giovanni",
               img: "/materials/calf-leather/gio.jpg",
             },

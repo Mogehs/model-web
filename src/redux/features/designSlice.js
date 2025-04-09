@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   designState: true,
   medallionState: false,
-  soleState: "leatherBlack",
+  soleState: "rubber",
   lacesStyle: "black",
   eyeletsStyle: "blind eyelets",
   eyeletsColor: "black",
-  materialColor: "#282828",
+  materialColor: "#262626",
 };
 
 const designSlice = createSlice({

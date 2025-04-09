@@ -11,6 +11,7 @@ import {
   setEyeletsStyleState,
   setAllPiecesMaterialState,
   setMaterialType,
+  setSoleDisplayStyleState,
 } from "../redux/features/styleSlice";
 import Medallion from "./style/Medallion";
 import ToeCap from "./style/ToeCap";
@@ -32,11 +33,12 @@ const ToggleDesign = () => {
   const toeCapStyle = useSelector((state) => state.style.toeCapStyleState);
   const modelStyle = useSelector((state) => state.style.modelStyleState);
   const lacesStyle = useSelector((state) => state.style.lacesStyleState);
+  const selectedStyle = useSelector((state) => state.model.selectedStyle);
   const eyeletsStyleState = useSelector(
     (state) => state.style.eyeletsStyleState
   );
   const allPiecesState = useSelector(
-    (state, action) => state.style.allPiecesMaterialState
+    (state) => state.style.allPiecesMaterialState
   );
   const eyeletsStyle = useSelector((state) => state.design.eyeletsStyle);
   const lacesType = useSelector((state) => state.style.lacesType);
@@ -56,59 +58,115 @@ const ToggleDesign = () => {
         <h1 className="mx-auto w-50 text-center leading-none uppercase sticky top-0 bg-white pt-6">
           Choose the each material of your shoe
         </h1>
-        <div className="flex flex-col items-center gap-15 mt-10 h-fit">
-          {[
-            {
-              label: "all pieces",
-              current: "italian calf leather",
-              img: "/materials/all-pieces.png",
-            },
-            {
-              label: "toe cap",
-              current: "italian calf leather",
-              img: "/materials/toe-cap.png",
-            },
-            {
-              label: "vamp",
-              current: "italian calf leather",
-              img: "/materials/vamp.png",
-            },
-            {
-              label: "quarter",
-              current: "italian calf leather",
-              img: "/materials/quarter.png",
-            },
-            {
-              label: "facing",
-              current: "italian calf leather",
-              img: "/materials/facing.png",
-            },
-            {
-              label: "heel cap",
-              current: "italian calf leather",
-              img: "/materials/heel-cap.png",
-            },
-            {
-              label: "tounge",
-              current: "italian calf leather",
-              img: "/materials/tongue.png",
-            },
-          ].map((item) => (
-            <div
-              className="flex flex-col items-center cursor-pointer h-fit uppercase text-center"
-              onClick={() => {
-                dispatch(setAllPiecesMaterialState(!allPiecesState));
-                dispatch(setMaterialType(item.label));
-              }}
-            >
-              <img src={item.img} alt="" className="w-[12rem]" />
-              <p className="cursor-pointer text-[0.9rem] text-gray-400">
-                {item.label}
-              </p>
-              <p className="text-[0.9rem] font-bold">{item.current}</p>
-            </div>
-          ))}
-        </div>
+        {selectedStyle === "wingtip" ? (
+          <div className="flex flex-col items-center gap-15 mt-10 h-fit">
+            {[
+              {
+                label: "all pieces",
+                current: "italian calf leather",
+                img: "/materials/all-pieces.png",
+              },
+              {
+                label: "toe cap",
+                current: "italian calf leather",
+                img: "/materials/toe-cap.png",
+              },
+              {
+                label: "vamp",
+                current: "italian calf leather",
+                img: "/materials/vamp.png",
+              },
+              {
+                label: "quarter",
+                current: "italian calf leather",
+                img: "/materials/quarter.png",
+              },
+              {
+                label: "facing",
+                current: "italian calf leather",
+                img: "/materials/facing.png",
+              },
+              {
+                label: "heel cap",
+                current: "italian calf leather",
+                img: "/materials/heel-cap.png",
+              },
+              {
+                label: "tounge",
+                current: "italian calf leather",
+                img: "/materials/tongue.png",
+              },
+            ].map((item) => (
+              <div
+                className="flex flex-col items-center cursor-pointer h-fit uppercase text-center"
+                onClick={() => {
+                  dispatch(setAllPiecesMaterialState(!allPiecesState));
+                  dispatch(setMaterialType(item.label));
+                }}
+              >
+                <img src={item.img} alt="" className="w-[12rem]" />
+                <p className="cursor-pointer text-[0.9rem] text-gray-400">
+                  {item.label}
+                </p>
+                <p className="text-[0.9rem] font-bold">{item.current}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-15 mt-10 h-fit">
+            {[
+              {
+                label: "all pieces",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/all-pieces.png",
+              },
+              {
+                label: "toe cap",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/toe-cap.png",
+              },
+              {
+                label: "vamp",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/vamp.png",
+              },
+              {
+                label: "quarter",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/quarter.png",
+              },
+              {
+                label: "facing",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/facing.png",
+              },
+              {
+                label: "heel cap",
+                current: "italian calf leather",
+                img: "/materials/cap-toe/heel-cap.png",
+              },
+              {
+                label: "tounge",
+                current: "italian calf leather",
+                img: "/materials/tongue.png",
+              },
+            ].map((item) => (
+              <div
+                className="flex flex-col items-center cursor-pointer h-fit uppercase text-center"
+                onClick={() => {
+                  dispatch(setAllPiecesMaterialState(!allPiecesState));
+                  dispatch(setMaterialType(item.label));
+                }}
+              >
+                <img src={item.img} alt="" className="w-[12rem]" />
+                <p className="cursor-pointer text-[0.9rem] text-gray-400">
+                  {item.label}
+                </p>
+                <p className="text-[0.9rem] font-bold">{item.current}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div
           className="mt-20 text-center text-[1rem]  cursor-pointer bg-white sticky bottom-0 w-full h-[4rem]"
           onClick={() => setMaterials(false)}
@@ -133,7 +191,7 @@ const ToggleDesign = () => {
         <div className="flex flex-col items-center gap-15 mt-10 h-fit">
           {[
             { label: "model", current: modelType },
-            { label: "toe cap", current: "WingTip" },
+            { label: "toe cap", current: selectedStyle },
             { label: "medallion", current: medallionState ? "yes" : "no" },
             {
               label: "sole",
@@ -152,6 +210,7 @@ const ToggleDesign = () => {
                   dispatch(setMedallionStyleState(!medallionStyle));
                 item.label === "sole" &&
                   dispatch(setSoleStyleState(!soleStyle));
+                dispatch(setSoleDisplayStyleState(true));
                 item.label === "model" &&
                   dispatch(setModelStyleState(!modelStyle));
                 item.label === "laces" &&
@@ -187,7 +246,6 @@ const ToggleDesign = () => {
       <Medallion />
       <ToeCap />
       <Eyelets />
-
       <Materials />
       <AllPieces />
 

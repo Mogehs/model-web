@@ -2,18 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedModel: "oxford",
-  selectedStyle: "wingTip",
+  selectedStyle: "cap toe",
 };
 
 const modelSlice = createSlice({
   name: "model",
   initialState,
   reducers: {
-    setSelectedStyle: (state, action) => {
-      state.selectedModel = action.payload;
-    },
     setSelectedModel: (state, action) => {
       state.selectedModel = action.payload;
+    },
+    setSelectedStyle: (state, action) => {
+      state.selectedStyle = action.payload;
     },
   },
 });

@@ -8,6 +8,7 @@ const initialState = {
   toeCapStyleState: false,
   modelStyleState: false,
   lacesStyleState: false,
+  soleDisplaytStyleStateState: false,
   lacesType: "black",
   eyeletsStyleState: false,
   materialType: "all pieces",
@@ -38,6 +39,9 @@ const styleSlice = createSlice({
     setEyeletsStyleState: (state, action) => {
       state.eyeletsStyleState = action.payload;
     },
+    setSoleDisplayStyleState: (state, action) => {
+      state.soleDisplayStyleState = action.payload;
+    },
     setAllPiecesMaterialState: (state, action) => {
       state.allPiecesMaterialState = action.payload;
     },
@@ -61,6 +65,7 @@ export const {
   setAllPiecesMaterialState,
   setMaterialType,
   setLacesType,
+  setSoleDisplayStyleState,
 } = styleSlice.actions;
 
 export default styleSlice.reducer;
