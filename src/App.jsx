@@ -21,15 +21,57 @@ function App() {
     <>
       <div className="container mx-auto max-w-[1536px]">
         <div className="canvas relative">
-          <Canvas>
+          <Canvas shadows>
             <Suspense fallback={null}>
-              {/* <Model
-                scale={[20, 20, 20]}
-                position={[-0.72, -0.4, 0.2]}
-                rotation={[0.4, 1.1, -0.1]}
-                renderOrder={1}
-              /> */}
-              {/* ye theek ha above wal testing k liye lgaya tha */}
+              {/* ✅ Realistic HDRI Background */}
+              <Environment preset="apartment" />
+
+              {/* ✅ Main Directional Light */}
+              <directionalLight
+                castShadow
+                position={[3, 10, 3]}
+                intensity={1.5}
+                color={"#ffffff"}
+                shadow-mapSize-width={4096}
+                shadow-mapSize-height={4096}
+                shadow-camera-far={50}
+                shadow-camera-left={-10}
+                shadow-camera-right={10}
+                shadow-camera-top={10}
+                shadow-camera-bottom={-10}
+              />
+
+              {/* ✅ Subtle Warm Fill Light */}
+              <spotLight
+                position={[-3, 5, 2]}
+                angle={0.3}
+                penumbra={0.5}
+                intensity={0.7}
+                color={"#ffeadb"}
+                castShadow
+                shadow-bias={-0.0001}
+              />
+
+              {/* ✅ Ambient Light for soft fill */}
+              <ambientLight intensity={1.4} />
+
+              {/* ✅ Extra Fill to simulate bounce light */}
+              <pointLight
+                position={[2, 1, -4]}
+                intensity={1.3}
+                color="#b0c4de"
+              />
+
+              {/* ✅ Bloom Effect for glow/highlights */}
+              <EffectComposer>
+                <Bloom
+                  intensity={1.15}
+                  luminanceThreshold={1.25}
+                  luminanceSmoothing={1.9}
+                />
+              </EffectComposer>
+
+              {/* ✅ Models */}
               {soleDisplayStyle && (
                 <Model
                   scale={[20, 20, 20]}
@@ -52,10 +94,7 @@ function App() {
                   rotation={[0.4, 1.1, -0.1]}
                   renderOrder={2}
                 />
-              ) : (
-                ""
-              )}
-              <Environment preset="city" />
+              ) : null}
             </Suspense>
           </Canvas>
         </div>

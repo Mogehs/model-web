@@ -7,7 +7,13 @@ const initialState = {
   lacesStyle: "black",
   eyeletsStyle: "blind eyelets",
   eyeletsColor: "black",
-  materialColor: "#262626",
+  materialColor: "black",
+  toeCapColor: "#262626",
+  vampColor: "#262626",
+  facingColor: "#262626",
+  quarterColor: "#262626",
+  heelCapColor: "#262626",
+  toungueColor: "#262626",
 };
 
 const designSlice = createSlice({
@@ -35,6 +41,24 @@ const designSlice = createSlice({
     setMaterialColor: (state, action) => {
       state.materialColor = action.payload;
     },
+    setToeCapColor: (state, action) => {
+      state.toeCapColor = action.payload;
+    },
+    setVampColor: (state, action) => {
+      state.vampColor = action.payload;
+    },
+    setFacingColor: (state, action) => {
+      state.facingColor = action.payload;
+    },
+    setQuarterColor: (state, action) => {
+      state.quarterColor = action.payload;
+    },
+    setHeelCapColor: (state, action) => {
+      state.heelCapColor = action.payload;
+    },
+    setToungueColor: (state, action) => {
+      state.toungueColor = action.payload;
+    },
   },
 });
 
@@ -46,6 +70,12 @@ export const {
   setEyeletsStyle,
   setEyeletsColor,
   setMaterialColor,
+  setToeCapColor,
+  setVampColor,
+  setFacingColor,
+  setQuarterColor,
+  setHeelCapColor,
+  setToungueColor,
 } = designSlice.actions;
 
 export default designSlice.reducer;

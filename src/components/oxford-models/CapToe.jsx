@@ -22,10 +22,12 @@ export function CapToeModel(props) {
   const eyeletsColor = useSelector((state) => state.design.eyeletsColor);
   const eyeletsType = useSelector((state) => state.design.eyeletsStyle);
   const sole = useSelector((state) => state.design.soleState);
-  const allPiecesState = useSelector(
-    (state) => state.style.allPiecesMaterialState
-  );
-
+  const quarterColor = useSelector((state) => state.design.quarterColor);
+  const vampColor = useSelector((state) => state.design.vampColor);
+  const heelCapColor = useSelector((state) => state.design.heelCapColor);
+  const facingColor = useSelector((state) => state.design.facingColor);
+  const toungueColor = useSelector((state) => state.design.toungueColor);
+  const toeCapColor = useSelector((state) => state.design.toeCapColor);
   const [backThreadMaterial, setBackThreadMaterial] = useState(
     materials["Thread Material"].clone()
   );
@@ -47,7 +49,7 @@ export function CapToeModel(props) {
     if (!materials) return;
 
     const materialUpdates = {
-      "Laces.002": { color: lacesColor, intensity: 8 },
+      "Laces.002": { color: lacesColor, intensity: 1 },
       Points: { color: "black", intensity: 1 },
       "EyeLets Material": { color: eyeletsColor, intensity: 2 },
     };
@@ -68,7 +70,7 @@ export function CapToeModel(props) {
           "Inner Part of Inner Piece Material",
           "Thread Material",
         ].forEach((item) => {
-          materials[item].color.set(materialColor).multiplyScalar(12);
+          materials[item].color.set(materialColor).multiplyScalar(2);
         });
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -92,47 +94,57 @@ export function CapToeModel(props) {
         });
       } else if (materialType === "toe cap") {
         setToeThreadMaterial((prevMaterial) => {
-          prevMaterial.color.set(materialColor);
+          prevMaterial.color.set(toeCapColor);
           return prevMaterial;
         });
-        materials["Cap Toe Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+        materials["Cap Toe Material"].color.set(toeCapColor).multiplyScalar(2);
       } else if (materialType === "vamp") {
         setVampThreadMaterial((prevMaterial) => {
-          prevMaterial.color.set(materialColor);
+          prevMaterial.color.set(vampColor);
           return prevMaterial;
         });
         materials["Cap Toe Body Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+          .set(vampColor)
+          .multiplyScalar(2);
       } else if (materialType === "quarter") {
         materials["Cap Toe Side Parts Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+          .set(quarterColor)
+          .multiplyScalar(2);
       } else if (materialType === "facing") {
         setFaceThreadMaterial((prevMaterial) => {
-          prevMaterial.color.set(materialColor);
+          prevMaterial.color.set(facingColor);
           return prevMaterial;
         });
         materials["Cap Toe Front Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+          .set(facingColor)
+          .multiplyScalar(2);
       } else if (materialType === "heel cap") {
         setBackThreadMaterial((prevMaterial) => {
-          prevMaterial.color.set(materialColor);
+          prevMaterial.color.set(heelCapColor);
           return prevMaterial;
         });
         materials["Cap Toe Back Part Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+          .set(heelCapColor)
+          .multiplyScalar(2);
       } else if (materialType === "tounge") {
         materials["Outer Part of Inner Piece Material"].color
-          .set(materialColor)
-          .multiplyScalar(12);
+          .set(toungueColor)
+          .multiplyScalar(2);
       }
     });
-  }, [materials, lacesColor, eyeletsColor, materialType, materialColor]);
+  }, [
+    materials,
+    lacesColor,
+    eyeletsColor,
+    materialType,
+    materialColor,
+    quarterColor,
+    vampColor,
+    facingColor,
+    toungueColor,
+    heelCapColor,
+    toeCapColor,
+  ]);
   // ye textures k liye hai.......................................
   const [albedo, normal, roughness, metalness, ao] = useLoader(
     THREE.TextureLoader,
@@ -188,8 +200,8 @@ export function CapToeModel(props) {
         mat.metalnessMap = clonedMetalness;
         mat.aoMap = clonedAO;
 
-        mat.roughness = 0.8;
-        mat.metalness = 0.05;
+        mat.roughness = 1.3;
+        mat.metalness = 0.3;
         mat.aoMapIntensity = 2;
         mat.normalScale = new THREE.Vector2(0.5, 0.5);
         mat.clearcoat = 0;
@@ -242,6 +254,7 @@ export function CapToeModel(props) {
             e.object.material.emissive.set(0x000000);
             e.object.material.emissiveIntensity = 0;
           }}
+          material-color="#742C19"
         />
       </group>
       {medallionState && (
@@ -312,7 +325,6 @@ export function CapToeModel(props) {
           }}
         />
       )}
-      {/* ye hutta doon ga tu meddallion mil jay ga */}
       {!medallionState && (
         <mesh
           geometry={nodes.Cap_Toe.geometry}
@@ -395,19 +407,19 @@ export function CapToeModel(props) {
           dispatch(setAllPiecesMaterialState(true));
         }}
       />
-      <mesh
+      {/* <mesh
         geometry={nodes.Cap_Toe__Thread_Path_9_Stich_Back.geometry}
         material={materials["Thread Material"]}
         position={[0, 0, -0.003]}
-      />
+      /> */}
       <mesh
         geometry={nodes.Cap_Toe__Thread_Path_10_Stich_Middle.geometry}
         material={faceThreadMaterial}
       />
-      <mesh
+      {/* <mesh
         geometry={nodes.Cap_Toe__Thread_Path_13_Middle_Stich.geometry}
         material={materials["Thread Material"]}
-      />
+      /> */}
       <mesh
         geometry={nodes.Cap_Toe__Thread_Top_Sides_Outer.geometry}
         material={faceThreadMaterial}
@@ -440,10 +452,10 @@ export function CapToeModel(props) {
         geometry={nodes.Cap_Toe_Thread_Path_11_Stich_Middle003.geometry}
         material={vampThreadMaterial}
       />
-      <mesh
+      {/* <mesh
         geometry={nodes.Cap_Toe_Thread_Path_12_Middle_Stich.geometry}
         material={materials["Thread Material"]}
-      />
+      /> */}
       <mesh
         geometry={nodes.Cap_Toe_Thread_Top.geometry}
         material={toeThreadMaterial}
@@ -469,12 +481,18 @@ export function CapToeModel(props) {
           <mesh
             geometry={nodes.Cube007_1.geometry}
             material={materials.Points}
+            material-color="black"
           />
           <mesh
             geometry={nodes.Cube007_2.geometry}
             material={materials["Brown Bottom"]}
+            material-color="black"
           />
-          <mesh geometry={nodes.Cube007_3.geometry} material={materials.Heel} />
+          <mesh
+            geometry={nodes.Cube007_3.geometry}
+            material={materials.Heel}
+            material-color="black"
+          />
         </group>
       )}
       {sole === "leatherMid" && (
@@ -496,7 +514,7 @@ export function CapToeModel(props) {
           <mesh
             geometry={nodes.Cube002_4.geometry}
             material={materials["Leather Mid Sole"]}
-            material-color="brown"
+            material-color="#742C19"
           />
         </group>
       )}
