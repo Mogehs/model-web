@@ -8,12 +8,12 @@ const initialState = {
   eyeletsStyle: "blind eyelets",
   eyeletsColor: "black",
   materialColor: "black",
-  toeCapColor: "#262626",
-  vampColor: "#262626",
-  facingColor: "#262626",
-  quarterColor: "#262626",
-  heelCapColor: "#262626",
-  toungueColor: "#262626",
+  toeCapColor: "black",
+  vampColor: "black",
+  facingColor: "black",
+  quarterColor: "black",
+  heelCapColor: "black",
+  toungueColor: "black",
 };
 
 const designSlice = createSlice({

@@ -408,7 +408,7 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube007.geometry}
             material={materials.Sole}
-            material-color="#262626"
+            material-color="black"
           />
 
           <mesh
@@ -418,12 +418,12 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube007_2.geometry}
             material={materials["Brown Bottom"]}
-            material-color="#742713"
+            material-color="#3C1E12"
           />
           <mesh
             geometry={nodes.Cube007_3.geometry}
             material={materials.Heel}
-            material-color="#262626"
+            material-color="black"
           />
         </group>
       )}
@@ -433,22 +433,22 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube003_1.geometry}
             material={materials.Points}
-            material-color="#262626"
+            material-color="black"
           />
           <mesh
             geometry={nodes.Cube003_2.geometry}
             material={materials["Brown Bottom"]}
-            material-color="#742713"
+            material-color="#3C1E12"
           />
           <mesh
             geometry={nodes.Cube003_3.geometry}
             material={materials.Heel}
-            material-color="#262626"
+            material-color="black"
           />
           <mesh
             geometry={nodes.Cube003_4.geometry}
             material={materials["Leather Mid Sole"]}
-            material-color="#712815"
+            material-color="#3C1E12"
           />
         </group>
       )}
@@ -457,12 +457,12 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube014.geometry}
             material={materials.Sole}
-            material-color="#262626"
+            material-color="black"
           />
           <mesh
             geometry={nodes.Cube014_1.geometry}
             material={materials["Brown Bottom"]}
-            material-color="#262626"
+            material-color="black"
           />
         </group>
       )}
@@ -471,17 +471,17 @@ export default function Model(props) {
           <mesh
             geometry={nodes.Cube004.geometry}
             material={materials.Sole}
-            material-color="#262626"
+            material-color="black"
           />
           <mesh
             geometry={nodes.Cube004_1.geometry}
             material={materials["Wood Sole"]}
-            material-color="#6C5D54"
+            material-color="#503317"
           />
           <mesh
             geometry={nodes.Cube004_2.geometry}
             material={materials["Sole Bottom"]}
-            material-color="#262626"
+            material-color="black"
           />
         </>
       )}

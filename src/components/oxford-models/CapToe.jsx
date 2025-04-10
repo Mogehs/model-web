@@ -70,7 +70,7 @@ export function CapToeModel(props) {
           "Inner Part of Inner Piece Material",
           "Thread Material",
         ].forEach((item) => {
-          materials[item].color.set(materialColor).multiplyScalar(2);
+          materials[item].color.set(materialColor).multiplyScalar(4);
         });
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(materialColor);
@@ -97,7 +97,7 @@ export function CapToeModel(props) {
           prevMaterial.color.set(toeCapColor);
           return prevMaterial;
         });
-        materials["Cap Toe Material"].color.set(toeCapColor).multiplyScalar(2);
+        materials["Cap Toe Material"].color.set(toeCapColor).multiplyScalar(4);
       } else if (materialType === "vamp") {
         setVampThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(vampColor);
@@ -105,11 +105,11 @@ export function CapToeModel(props) {
         });
         materials["Cap Toe Body Material"].color
           .set(vampColor)
-          .multiplyScalar(2);
+          .multiplyScalar(4);
       } else if (materialType === "quarter") {
         materials["Cap Toe Side Parts Material"].color
           .set(quarterColor)
-          .multiplyScalar(2);
+          .multiplyScalar(4);
       } else if (materialType === "facing") {
         setFaceThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(facingColor);
@@ -117,7 +117,7 @@ export function CapToeModel(props) {
         });
         materials["Cap Toe Front Material"].color
           .set(facingColor)
-          .multiplyScalar(2);
+          .multiplyScalar(4);
       } else if (materialType === "heel cap") {
         setBackThreadMaterial((prevMaterial) => {
           prevMaterial.color.set(heelCapColor);
@@ -125,11 +125,11 @@ export function CapToeModel(props) {
         });
         materials["Cap Toe Back Part Material"].color
           .set(heelCapColor)
-          .multiplyScalar(2);
+          .multiplyScalar(4);
       } else if (materialType === "tounge") {
         materials["Outer Part of Inner Piece Material"].color
           .set(toungueColor)
-          .multiplyScalar(2);
+          .multiplyScalar(4);
       }
     });
   }, [
@@ -200,8 +200,8 @@ export function CapToeModel(props) {
         mat.metalnessMap = clonedMetalness;
         mat.aoMap = clonedAO;
 
-        mat.roughness = 1.3;
-        mat.metalness = 0.3;
+        mat.roughness = 1.0;
+        mat.metalness = 1.3;
         mat.aoMapIntensity = 2;
         mat.normalScale = new THREE.Vector2(0.5, 0.5);
         mat.clearcoat = 0;
@@ -514,7 +514,7 @@ export function CapToeModel(props) {
           <mesh
             geometry={nodes.Cube002_4.geometry}
             material={materials["Leather Mid Sole"]}
-            material-color="#742C19"
+            material-color="#3C1E12"
           />
         </group>
       )}

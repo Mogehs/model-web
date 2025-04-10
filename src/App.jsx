@@ -30,7 +30,7 @@ function App() {
               <directionalLight
                 castShadow
                 position={[3, 10, 3]}
-                intensity={1.5}
+                intensity={2.5}
                 color={"#ffffff"}
                 shadow-mapSize-width={4096}
                 shadow-mapSize-height={4096}
