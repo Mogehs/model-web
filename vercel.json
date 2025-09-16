@@ -1,0 +1,48 @@
+{
+  "rewrites": [
+    {
+      "source": "/old-route",
+      "destination": "/new-route"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/user/dashboard"
+    },
+    {
+      "source": "/profile",
+      "destination": "/user/profile"
+    },
+    {
+      "source": "/settings",
+      "destination": "/user/settings"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/old-page",
+      "destination": "/new-page",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/articles/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/support",
+      "permanent": true
+    },
+    {
+      "source": "/shop/:id",
+      "destination": "/store/:id",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*).(gltf|glb)",
+      "headers": [{ "key": "Content-Type", "value": "model/gltf-binary" }]
+    }
+  ]
+}

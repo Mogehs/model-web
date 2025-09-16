@@ -1,0 +1,57 @@
+body {
+  overflow-x: hidden;
+}
+
+.canvas {
+  position: relative;
+  width: 80%;
+  height: 100vh;
+}
+Canvas {
+  background-color: #f5f4f3;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+}
+
+@media screen and (max-width: 430px) {
+  .container {
+    display: inline;
+  }
+  .canvas {
+    width: 100%;
+    height: 60vh;
+  }
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid rgba(0, 0, 0, 0.509);
+  border-top-color: #170303;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+.loading-text {
+  text-align: center;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

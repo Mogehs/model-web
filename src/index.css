@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("/fonts/GT Haptik Regular.ttf") format("truetype"),
+    url("/fonts/GT Haptik Regular.woff") format("woff"),
+    url("/fonts/GT Haptik Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@theme {
+  --font-gt: "MyCustomFont";
+}
