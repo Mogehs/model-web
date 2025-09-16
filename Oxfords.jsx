@@ -8,7 +8,7 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export function Model(props) {
-  const { nodes } = useGLTF("/Oxfords.glb");
+  const { nodes } = useGLTF("./Oxfords.glb");
   const [hoveredPart, setHoveredPart] = useState(null);
 
   // Load only the normal map for subtle surface detail
