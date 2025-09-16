@@ -401,4 +401,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/Oxfords.glb");
+useGLTF.preload("./Oxfords.glb");
