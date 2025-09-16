@@ -8,13 +8,13 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export function Model(props) {
-  const { nodes } = useGLTF("/Oxfords.glb");
+  const { nodes } = useGLTF(
+    "https://drive.google.com/uc?export=download&id=11XQCLHOG1CmfpnzfQmR1zrvJgcXOSrC7"
+  );
   const [hoveredPart, setHoveredPart] = useState(null);
 
-  // Load only the normal map for subtle surface detail
   const normalMap = useTexture("/textures/black-leather_normal-ogl.png");
 
-  // Function to create material with hover effect
   const createMaterial = (baseMaterial, partName) => {
     const isHovered = hoveredPart === partName;
     return new THREE.MeshStandardMaterial({
@@ -23,7 +23,7 @@ export function Model(props) {
         ? new THREE.Color().lerpColors(
             new THREE.Color(baseMaterial.color),
             new THREE.Color(0xffffff),
-            0.08 // Very subtle white overlay (8% opacity)
+            0.01
           )
         : new THREE.Color(baseMaterial.color),
     });
@@ -31,11 +31,11 @@ export function Model(props) {
 
   // Base materials
   const baseLeatherMaterial = {
-    color: 0x1a1a1a,
+    color: 0x333333,
     roughness: 0.5,
-    metalness: 0.7,
+    metalness: 0.9,
     normalMap: normalMap,
-    normalScale: new THREE.Vector2(0.08, 0.08),
+    normalScale: new THREE.Vector2(0.07, 0.07),
   };
 
   const baseSoleMaterial = {
@@ -46,7 +46,7 @@ export function Model(props) {
 
   const baseLacesMaterial = {
     color: 0x1a1a1a,
-    roughness: 0.8,
+    roughness: 1.8,
   };
 
   const baseEyeletsMaterial = {
@@ -401,4 +401,6 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/Oxfords.glb");
+useGLTF.preload(
+  "https://drive.google.com/uc?export=download&id=11XQCLHOG1CmfpnzfQmR1zrvJgcXOSrC7"
+);

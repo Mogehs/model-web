@@ -62,15 +62,15 @@ function App() {
               <hemisphereLight
                 skyColor="#ffffff"
                 groundColor="#444444"
-                intensity={3.6}
+                intensity={4.6}
               />
 
               {/* Postprocessing for subtle realism */}
               <EffectComposer>
                 <Bloom
-                  intensity={0.4}
+                  intensity={1}
                   luminanceThreshold={1}
-                  luminanceSmoothing={1.5}
+                  luminanceSmoothing={1.9}
                 />
               </EffectComposer>
 
